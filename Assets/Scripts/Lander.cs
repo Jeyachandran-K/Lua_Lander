@@ -28,4 +28,15 @@ public class Lander : MonoBehaviour
         }
         
     }
+    private void OnCollisionEnter2D(Collision2D collision2D)
+    {
+        float softLandingVelocityMagnitude = 3f;
+        if (collision2D.relativeVelocity.magnitude > softLandingVelocityMagnitude)
+        {
+            Debug.Log("Lander Crashed");
+            return;
+        }
+        Debug.Log("Successful Landing");
+
+    }
 }
