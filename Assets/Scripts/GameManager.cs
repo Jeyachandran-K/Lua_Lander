@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,6 +8,7 @@ public class GameManager : MonoBehaviour
     private int score;
     private int coinScoreAmount = 500;
     private float time;
+    private bool isTimerActive;
 
     private void Awake()
     {
@@ -17,11 +19,24 @@ public class GameManager : MonoBehaviour
     {
         Lander.Instance.OnCoinPickUp += Instance_OnCoinPickUp;
         Lander.Instance.OnLanding += Instance_OnLanding;
+        Lander.Instance.OnStateChange += Instance_OnStateChange;
+    }
+
+    private void Instance_OnStateChange(object sender, Lander.OnStateChangeEventArgs e)
+    {
+        if (e.state == Lander.State.Normal)
+        {
+            isTimerActive = true;
+        }
     }
 
     private void Update()
     {
-        time += Time.deltaTime;
+        if (isTimerActive)
+        {
+            time += Time.deltaTime;
+        }
+        
     }
 
     private void Instance_OnLanding(object sender, Lander.OnLandingEventArgs e)
