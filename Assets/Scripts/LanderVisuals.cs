@@ -33,7 +33,7 @@ public class LanderVisuals : MonoBehaviour
         if (e.landingType != Lander.LandingType.Success)
         {
             Instantiate(particleExplosionVFX, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
