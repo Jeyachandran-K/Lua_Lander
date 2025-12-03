@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +13,10 @@ public class GameManager : MonoBehaviour
     private float time;
     private bool isTimerActive;
     private static int levelNumber=1;
+    private float currentLevelOrthographicSize;
+
     [SerializeField] private List<GameLevel> gameLevelList;
+    [SerializeField] private CinemachineCamera cinemachineCamera;
 
 
     private void Awake()
@@ -34,6 +38,12 @@ public class GameManager : MonoBehaviour
         if (e.state == Lander.State.Normal)
         {
             isTimerActive = true;
+            cinemachineCamera.Target.TrackingTarget = Lander.Instance.transform;
+            CinemachineCameraZoom2D.Instance.SetNormalOrthographicSize();
+        }
+        else
+        {
+            isTimerActive= false;
         }
     }
 
@@ -59,7 +69,7 @@ public class GameManager : MonoBehaviour
     public void addScore(int scoreAmount)
     {
         score += scoreAmount;
-        Debug.Log(score);
+        
 
     }
 
@@ -79,7 +89,10 @@ public class GameManager : MonoBehaviour
             {
                 GameLevel spawnedGameLevel=Instantiate(gameLevel,Vector3.zero,Quaternion.identity);
                 Lander.Instance.transform.position=spawnedGameLevel.GetLanderStartingPosition();
-            }
+                cinemachineCamera.Target.TrackingTarget =spawnedGameLevel.GetCameraStartingPositionTransform();
+                currentLevelOrthographicSize = spawnedGameLevel.GetZoomOutOrthographicSize();
+                CinemachineCameraZoom2D.Instance.SetTargetOrthographicSize(currentLevelOrthographicSize);
+            }   
         }
     }
     public void GoNextLevel()
@@ -94,5 +107,9 @@ public class GameManager : MonoBehaviour
     public int GetLevelNumber()
     {
         return levelNumber;
+    }
+    public float GetCurrentLevelOrthoGraphicsize()
+    {
+        return currentLevelOrthographicSize;
     }
 }
