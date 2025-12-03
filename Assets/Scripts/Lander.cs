@@ -71,8 +71,9 @@ public class Lander : MonoBehaviour
                 break;
             case State.WaitingToStart:
                 if (GameInput.Instance.IsUpActionPressed() ||
+                    GameInput.Instance.IsLeftActionPressed() ||
                     GameInput.Instance.IsRightActionPressed() ||
-                    GameInput.Instance.IsRightActionPressed())
+                    GameInput.Instance.GetMovementInputVector() != Vector2.zero)
                 {
                     landerRigidbody2D.gravityScale = GRAVITY_NORMAL;
                     state=State.Normal;
@@ -88,23 +89,26 @@ public class Lander : MonoBehaviour
 
 
                 if (GameInput.Instance.IsUpActionPressed() ||
+                    GameInput.Instance.IsLeftActionPressed() ||
                     GameInput.Instance.IsRightActionPressed() ||
-                    GameInput.Instance.IsRightActionPressed())
+                    GameInput.Instance.GetMovementInputVector() != Vector2.zero)
                 {
                     ConsumeFuel();
                 }
+
+                float deadzoneAmount = 0.2f;
         
-                if (GameInput.Instance.IsUpActionPressed())
+                if (GameInput.Instance.IsUpActionPressed() || GameInput.Instance.GetMovementInputVector().y > deadzoneAmount)
                 {
                     landerRigidbody2D.AddForce(transform.up * speed * Time.fixedDeltaTime);
                     OnUpForce?.Invoke(this, EventArgs.Empty);
                 }
-                if (GameInput.Instance.IsLeftActionPressed())
+                if (GameInput.Instance.IsLeftActionPressed() || GameInput.Instance.GetMovementInputVector().x < -deadzoneAmount)
                 {
                     landerRigidbody2D.AddTorque(torque * Time.fixedDeltaTime);
                     OnLeftForce?.Invoke(this, EventArgs.Empty);
                 }
-                if (GameInput.Instance.IsRightActionPressed())
+                if (GameInput.Instance.IsRightActionPressed() || GameInput.Instance.GetMovementInputVector().x > deadzoneAmount)
                 {
                     landerRigidbody2D.AddTorque(-1 * torque * Time.fixedDeltaTime);
                     OnRightForce?.Invoke(this, EventArgs.Empty);
