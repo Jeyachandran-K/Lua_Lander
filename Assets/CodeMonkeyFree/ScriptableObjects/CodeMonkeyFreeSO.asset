@@ -14,44 +14,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 1.00
   subtype: lunarLanderFree
-  lastShownTimestamp: 1764725655
+  lastShownTimestamp: 1764816161
   lastUpdateResponse:
     version: 1.00
     versionUrl: https://unitycodemonkey.com
-  checkedLastUpdateTimestamp: 1764725655
+  checkedLastUpdateTimestamp: 1764816161
   lastQOTDResponse:
-    questionId: 247
-    questionText: 'If I do:
-
-      <p>Instantiate(myPrefab, Input.mousePosition,
-      Quaternion.identity);</p>
-
-      <p>Will myPrefab be spawned under the mouse?</p>'
+    questionId: 248
+    questionText: When you create a new script, do you always have to extend MonoBehaviour?
     answerA: Yes
     answerB: No
-    answerC: 
+    answerC: Only if you want to use it as a Game Object Component
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1764725656
+  lastQotdTimestamp: 1764816161
   lastDynamicHeaderResponse:
     topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/cmBlackFriday2025.png
     topText: Get my BLACK FRIDAY Bundle! Available now with Live Chat!
     topLink: blackfriday
     bottomText: My 10+ Years of C# Knowledge in 1 Course!
     bottomLink: csharpcourse
-  lastDynamicHeaderTimestamp: 1764725656
+  lastDynamicHeaderTimestamp: 1764816161
   websiteLatestMessage:
     text: <a href="https://cmonkey.co/freecourses">Check out all my FREE courses!
       Click here!</a>
-  websiteLatestMessageTimestamp: 1764725656
+  websiteLatestMessageTimestamp: 1764816161
   websiteLatestVideos:
     videos:
+    - youTubeId: c4tyM-o2uJQ
+      title: Make your Console 10X BETTER with this Tool! (50% OFF!)
     - youTubeId: 2AG3POM9wOs
       title: What are Unity Building Blocks?
     - youTubeId: uYkVz724eng
       title: TOP 10 NEW Tools AND Visuals NOVEMBER 2025!
     - youTubeId: UzddfPG2zr4
       title: The FUTURE of Unity! (and Unity 7 is DEAD!)
-    - youTubeId: Z_R-gcTuMrI
-      title: TOP 10 NEW Games, Made with Unity! (OCTOBER 2025)
-  websiteLatestVideosTimestamp: 1764725656
+  websiteLatestVideosTimestamp: 1764816161

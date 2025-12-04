@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Unity.Cinemachine;
@@ -8,15 +9,20 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance {  get; private set; }
 
+    private static int levelNumber = 1;
+    private static int totalScore=0;
+
     private int score;
     private int coinScoreAmount = 500;
     private float time;
     private bool isTimerActive;
-    private static int levelNumber=1;
     private float currentLevelOrthographicSize;
 
     [SerializeField] private List<GameLevel> gameLevelList;
     [SerializeField] private CinemachineCamera cinemachineCamera;
+
+    public event EventHandler OnGamePaused;
+    public event EventHandler OnGameUnpaused;
 
 
     private void Awake()
@@ -30,7 +36,13 @@ public class GameManager : MonoBehaviour
         Lander.Instance.OnLanding += Instance_OnLanding;
         Lander.Instance.OnStateChange += Instance_OnStateChange;
 
+        GameInput.Instance.OnMenuButtonPressed += Instance_OnMenuButtonPressed;
         LoadCurrentLevel();
+    }
+
+    private void Instance_OnMenuButtonPressed(object sender, System.EventArgs e)
+    {
+        PauseUnpauseGame();
     }
 
     private void Instance_OnStateChange(object sender, Lander.OnStateChangeEventArgs e)
@@ -83,22 +95,41 @@ public class GameManager : MonoBehaviour
     }
     private void LoadCurrentLevel()
     {
-        foreach(GameLevel gameLevel in gameLevelList)
-        {
-            if(gameLevel.GetLevelNumber() == levelNumber)
-            {
-                GameLevel spawnedGameLevel=Instantiate(gameLevel,Vector3.zero,Quaternion.identity);
-                Lander.Instance.transform.position=spawnedGameLevel.GetLanderStartingPosition();
-                cinemachineCamera.Target.TrackingTarget =spawnedGameLevel.GetCameraStartingPositionTransform();
-                currentLevelOrthographicSize = spawnedGameLevel.GetZoomOutOrthographicSize();
-                CinemachineCameraZoom2D.Instance.SetTargetOrthographicSize(currentLevelOrthographicSize);
-            }   
-        }
+        GameLevel gameLevel=GetGameLevel();
+        GameLevel spawnedGameLevel = Instantiate(gameLevel, Vector3.zero, Quaternion.identity);
+        Lander.Instance.transform.position = spawnedGameLevel.GetLanderStartingPosition();
+        cinemachineCamera.Target.TrackingTarget = spawnedGameLevel.GetCameraStartingPositionTransform();
+        currentLevelOrthographicSize = spawnedGameLevel.GetZoomOutOrthographicSize();
+        CinemachineCameraZoom2D.Instance.SetTargetOrthographicSize(currentLevelOrthographicSize);
     }
+
+    private GameLevel GetGameLevel()
+    {
+        foreach (GameLevel gameLevel in gameLevelList)
+        {
+            if (gameLevel.GetLevelNumber() == levelNumber)
+            {
+                return gameLevel;
+                
+            }
+
+        }
+        return null;
+    }
+
     public void GoNextLevel()
     {
         levelNumber++;
-        SceneLoader.LoadScene(SceneLoader.Scene.GameScene);
+        totalScore += score;
+
+        if (GetGameLevel() == null)
+        {
+            SceneLoader.LoadScene(SceneLoader.Scene.GameOverScene);
+        }
+        else
+        {
+            SceneLoader.LoadScene(SceneLoader.Scene.GameScene);
+        }           
     }
     public void Retry()
     {
@@ -111,5 +142,37 @@ public class GameManager : MonoBehaviour
     public float GetCurrentLevelOrthoGraphicsize()
     {
         return currentLevelOrthographicSize;
+    }
+    private void PauseUnpauseGame()
+    {
+        if (Time.timeScale == 0)
+        {
+            UnPauseGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+    }
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+        OnGamePaused?.Invoke(this,EventArgs.Empty); 
+    }
+    public void UnPauseGame()
+    {
+        Time.timeScale = 1f;
+        OnGameUnpaused?.Invoke(this,EventArgs.Empty);
+    }
+    public int GetTotalScore()
+    {
+        return totalScore;
+    }
+
+    public static void ResetStaticData()
+    {
+        levelNumber = 1;
+
+        totalScore = 0;
     }
 }
