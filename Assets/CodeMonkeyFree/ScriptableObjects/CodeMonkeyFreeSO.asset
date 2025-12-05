@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 1.00
   subtype: lunarLanderFree
-  lastShownTimestamp: 1764816161
+  lastShownTimestamp: 1764938342
   lastUpdateResponse:
     version: 1.00
     versionUrl: https://unitycodemonkey.com
-  checkedLastUpdateTimestamp: 1764816161
+  checkedLastUpdateTimestamp: 1764938342
   lastQOTDResponse:
     questionId: 248
     questionText: When you create a new script, do you always have to extend MonoBehaviour?
@@ -27,18 +27,18 @@ MonoBehaviour:
     answerC: Only if you want to use it as a Game Object Component
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1764816161
+  lastQotdTimestamp: 1764938342
   lastDynamicHeaderResponse:
-    topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/cmBlackFriday2025.png
-    topText: Get my BLACK FRIDAY Bundle! Available now with Live Chat!
-    topLink: blackfriday
+    topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/unityBlackFridayAssetStoreDec25.png
+    topText: Unity Asset Store is still having their BLACK FRIDAY deals!
+    topLink: unityassetstore
     bottomText: My 10+ Years of C# Knowledge in 1 Course!
     bottomLink: csharpcourse
-  lastDynamicHeaderTimestamp: 1764816161
+  lastDynamicHeaderTimestamp: 1764938342
   websiteLatestMessage:
     text: <a href="https://cmonkey.co/freecourses">Check out all my FREE courses!
       Click here!</a>
-  websiteLatestMessageTimestamp: 1764816161
+  websiteLatestMessageTimestamp: 1764938342
   websiteLatestVideos:
     videos:
     - youTubeId: c4tyM-o2uJQ
@@ -49,4 +49,4 @@ MonoBehaviour:
       title: TOP 10 NEW Tools AND Visuals NOVEMBER 2025!
     - youTubeId: UzddfPG2zr4
       title: The FUTURE of Unity! (and Unity 7 is DEAD!)
-  websiteLatestVideosTimestamp: 1764816161
+  websiteLatestVideosTimestamp: 1764938342
