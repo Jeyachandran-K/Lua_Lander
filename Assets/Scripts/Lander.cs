@@ -12,6 +12,7 @@ public class Lander : MonoBehaviour
     public event EventHandler OnRightForce;
     public event EventHandler OnBeforeForce;
     public event EventHandler OnCoinPickUp;
+    public event EventHandler OnFuelPickUp;
     public event EventHandler<OnLandingEventArgs> OnLanding;
     public event EventHandler<OnStateChangeEventArgs> OnStateChange;
 
@@ -197,6 +198,7 @@ public class Lander : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out FuelPickUp fuelPickUp))
         {
+            OnFuelPickUp?.Invoke(this,EventArgs.Empty);
             float addFuelAmount = 10f;
             fuelAmount += addFuelAmount;
             if (fuelAmount > fuelAmountMax)
